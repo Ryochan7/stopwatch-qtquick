@@ -85,6 +85,7 @@ ApplicationWindow {
                 id: indexLabel
                 text: (lapIndex + 1) + " "
                 font.bold: true
+                width: 50
             }
 
             Label {
@@ -117,17 +118,7 @@ ApplicationWindow {
             passedTime = new Date();
 
             var elapsedTimeMs = passedMs;
-            if (elapsedTimeMs < 6000000)
-            {
-                var milliseconds = Math.floor(elapsedTimeMs % 1000)
-                var seconds = Math.floor(elapsedTimeMs / 1000 % 60)
-                var minutes = Math.floor(elapsedTimeMs / 1000 / 60 % 60);
-                label1.text = pad(minutes, 2) + ":" + pad(seconds, 2) + ":" + pad(milliseconds, 3)
-            }
-            else
-            {
-                label1.text = "99:59:999"
-            }
+            label1.text = timeItemFormat(elapsedTimeMs);
         }
     }
 
@@ -200,6 +191,11 @@ ApplicationWindow {
                     onClicked: {
                         var currentTime = new Date();
                         passedMs += new Date() - passedTime;
+                        if (passedMs > 6000000)
+                        {
+                            passedMs = 6000000;
+                        }
+
                         passedTime = new Date();
                         refreshTimer.restart();
                         testModel.addLapItem(passedMs);
