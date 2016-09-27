@@ -175,7 +175,7 @@ ApplicationWindow {
                 Button {
                     id: stopButton
                     Layout.fillWidth: true
-                    text: qsTr("Stop")
+                    text: qsTr("&Stop")
 
                     onClicked: {
                         refreshTimer.stop();
@@ -186,7 +186,7 @@ ApplicationWindow {
                 Button {
                     id: lapButton
                     Layout.fillWidth: true
-                    text: qsTr("Lap")
+                    text: qsTr("&Lap")
 
                     onClicked: {
                         var currentTime = new Date();
@@ -215,7 +215,7 @@ ApplicationWindow {
                 Button {
                     id: restartButton
                     Layout.fillWidth: true
-                    text: qsTr("Restart")
+                    text: qsTr("&Restart")
 
                     onClicked: {
                         passedTime = new Date();
@@ -227,7 +227,7 @@ ApplicationWindow {
                 Button {
                     id: reset1Button
                     Layout.fillWidth: true
-                    text: qsTr("Reset")
+                    text: qsTr("Re&set")
 
                     onClicked: {
                         label1.text = qsTr("00:00:00");
