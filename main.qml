@@ -24,7 +24,7 @@ ApplicationWindow {
 
     function timeItemFormat(num) {
         var result = ""
-        if (num < 6000000)
+        if (num < testModel.timeLimt)
         {
             var milliseconds = Math.floor(num % 1000)
             var seconds = Math.floor(num / 1000 % 60)
@@ -191,14 +191,18 @@ ApplicationWindow {
                     onClicked: {
                         var currentTime = new Date();
                         passedMs += new Date() - passedTime;
-                        if (passedMs > 6000000)
+                        if (passedMs > testModel.timeLimt)
                         {
-                            passedMs = 6000000;
+                            passedMs = testModel.timeLimt;
                         }
 
                         passedTime = new Date();
                         refreshTimer.restart();
-                        testModel.addLapItem(passedMs);
+
+                        if (testModel.canAddLapItem(passedMs))
+                        {
+                            testModel.addLapItem(passedMs);
+                        }
                     }
                 }
             }
