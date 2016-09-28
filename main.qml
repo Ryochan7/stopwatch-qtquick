@@ -132,7 +132,7 @@ ApplicationWindow {
         anchors.leftMargin: 20
         anchors.topMargin: 20
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
+        anchors.bottomMargin: Qt.platform.os !== "android" ? 20 : 60
         height: 60
 
         initialItem: startButtons
