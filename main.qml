@@ -85,18 +85,20 @@ ApplicationWindow {
                 id: indexLabel
                 text: (lapIndex + 1) + " "
                 font.bold: true
+                font.pointSize: 14
                 width: 50
             }
 
             Label {
                 id: timeLabel
                 text: timeItemFormat(lapTime)
+                font.pointSize: 14
             }
 
             Label {
                 id: diffTimeLabel
                 text: timeItemFormat(diffTime)
-                font.pointSize: 12
+                font.pointSize: 16
             }
         }
     }
