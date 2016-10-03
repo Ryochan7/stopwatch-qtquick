@@ -86,14 +86,14 @@ void LapListModel::addLapItem(int passedMs)
 bool LapListModel::canAddLapItem(int passedMs)
 {
     bool result = false;
-    if (passedMs <= this->timeLimit)
+    if (passedMs <= this->m_timeLimit)
     {
         if (m_items.size() == 0)
         {
             result = true;
         }
         else if (m_items.size() > 0 &&
-                 m_items.last()->getPassedMs() != this->timeLimit)
+                 m_items.last()->getPassedMs() != this->m_timeLimit)
         {
             result = true;
         }

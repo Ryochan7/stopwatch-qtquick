@@ -22,7 +22,7 @@ public:
 
     explicit LapListModel(QObject *parent = 0);
 
-    Q_PROPERTY(int timeLimt MEMBER timeLimit CONSTANT)
+    Q_PROPERTY(int timeLimit MEMBER m_timeLimit CONSTANT)
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -32,7 +32,7 @@ public:
     Q_INVOKABLE void addLapItem(int passedMs);
     Q_INVOKABLE bool canAddLapItem(int passedMs);
 
-    static const int timeLimit = 600000;
+    static const int m_timeLimit = 6000000;
 
 protected:
     QList<LapItem*> m_items;

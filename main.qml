@@ -24,7 +24,7 @@ ApplicationWindow {
 
     function timeItemFormat(num) {
         var result = ""
-        if (num < testModel.timeLimt)
+        if (num < testModel.timeLimit)
         {
             var milliseconds = Math.floor(num % 1000)
             var seconds = Math.floor(num / 1000 % 60)
@@ -193,9 +193,9 @@ ApplicationWindow {
                     onClicked: {
                         var currentTime = new Date();
                         passedMs += new Date() - passedTime;
-                        if (passedMs > testModel.timeLimt)
+                        if (passedMs > testModel.timeLimit)
                         {
-                            passedMs = testModel.timeLimt;
+                            passedMs = testModel.timeLimit;
                         }
 
                         passedTime = new Date();
