@@ -78,6 +78,11 @@ void LapListModel::addLapItem(int passedMs)
         int newdiff = passedMs - m_items.at(index-1)->getPassedMs();
         item->setDiffMs(newdiff);
     }
+    else if (index == 0)
+    {
+        int newdiff = passedMs;
+        item->setDiffMs(newdiff);
+    }
 
     endInsertRows();
 
