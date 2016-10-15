@@ -12,6 +12,7 @@ ApplicationWindow {
 
     property date passedTime: new Date()
     property int passedMs: 0
+    property real fontSizeMulti: Qt.platform.os !== "android" ? 1.0 : 1.33
 
     function pad(num, len) {
         var result = num.toString()
@@ -59,7 +60,7 @@ ApplicationWindow {
     Label {
         id: label1
         text: qsTr("00:00:00")
-        font.pointSize: 28
+        font.pointSize: parseInt(28 * fontSizeMulti)
         anchors.top: parent.top
         anchors.topMargin: 40
         anchors.horizontalCenter: parent.horizontalCenter
@@ -85,20 +86,20 @@ ApplicationWindow {
                 id: indexLabel
                 text: (lapIndex + 1) + " "
                 font.bold: true
-                font.pointSize: 14
+                font.pointSize: parseInt(14 * fontSizeMulti)
                 width: 50
             }
 
             Label {
                 id: timeLabel
                 text: timeItemFormat(lapTime)
-                font.pointSize: 14
+                font.pointSize: parseInt(14 * fontSizeMulti)
             }
 
             Label {
                 id: diffTimeLabel
                 text: timeItemFormat(diffTime)
-                font.pointSize: 16
+                font.pointSize: parseInt(16 * fontSizeMulti)
             }
         }
     }
@@ -106,8 +107,8 @@ ApplicationWindow {
     SortFilterProxyModel {
         id: filteredLapModel
         sourceModel: testModel
-        sortOrder: Qt.DescendingOrder
         sortRoleName: "lapTime"
+        sortOrder: Qt.DescendingOrder
     }
 
     Timer {
