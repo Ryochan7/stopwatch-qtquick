@@ -66,43 +66,47 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    ListView {
-        id: lapTimeView
-        model: filteredLapModel
-
+    ScrollView {
+        anchors.top: label1.bottom
+        anchors.topMargin: 20
+        anchors.bottom: controlSwitcherView.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.leftMargin: 50
         anchors.rightMargin: 50
 
-        anchors.top: label1.bottom
-        anchors.topMargin: 20
-        anchors.bottom: controlSwitcherView.top
+        ListView {
+            id: lapTimeView
+            model: filteredLapModel
+            anchors.fill: parent
 
-        delegate: Row {
-            spacing: 50
+            delegate: Row {
+                spacing: 50
 
-            Label {
-                id: indexLabel
-                text: (lapIndex + 1) + " "
-                font.bold: true
-                font.pointSize: parseInt(14 * fontSizeMulti)
-                width: 50
-            }
+                Label {
+                    id: indexLabel
+                    text: (lapIndex + 1) + " "
+                    font.bold: true
+                    font.pointSize: parseInt(14 * fontSizeMulti)
+                    width: 50
+                }
 
-            Label {
-                id: timeLabel
-                text: timeItemFormat(lapTime)
-                font.pointSize: parseInt(14 * fontSizeMulti)
-            }
+                Label {
+                    id: timeLabel
+                    text: timeItemFormat(lapTime)
+                    font.pointSize: parseInt(14 * fontSizeMulti)
+                }
 
-            Label {
-                id: diffTimeLabel
-                text: timeItemFormat(diffTime)
-                font.pointSize: parseInt(16 * fontSizeMulti)
+                Label {
+                    id: diffTimeLabel
+                    text: timeItemFormat(diffTime)
+                    font.pointSize: parseInt(16 * fontSizeMulti)
+                }
             }
         }
     }
+
+
 
     SortFilterProxyModel {
         id: filteredLapModel
