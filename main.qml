@@ -1,6 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.3
 import SortFilterProxyModel 0.1
 
 ApplicationWindow {
@@ -125,9 +125,7 @@ ApplicationWindow {
         }
     }
 
-    // Using a StackView for non-page component switching would not work well
-    // on Android. Replace with ListView and ObjectModel later?
-    StackView {
+    StackLayout {
         id: controlSwitcherView
         anchors.right: parent.right
         anchors.rightMargin: 20
@@ -137,14 +135,15 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: Qt.platform.os !== "android" ? 20 : 60
         height: 60
+        currentIndex: 0
 
-        initialItem: startButtons
-
-        // Disable transition.
-        delegate: StackViewDelegate {
+        property var componentIndexMap: {
+            "startButtons": 0,
+            "runningButtons": 1,
+            "stoppedButtons": 2,
         }
 
-        Component {
+        Item {
             id: startButtons
 
             RowLayout {
@@ -162,7 +161,8 @@ ApplicationWindow {
                         //console.log("Start Called")
                         passedTime = new Date();
                         passedMs = 0;
-                        controlSwitcherView.replace(runningButtons)
+                        controlSwitcherView.currentIndex =
+                                controlSwitcherView.componentIndexMap["runningButtons"];
 
                         refreshTimer.start()
                         lapTimeView.visible = true
@@ -171,10 +171,14 @@ ApplicationWindow {
             }
         }
 
-        Component {
+        Item {
             id: runningButtons
 
             RowLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
                 Button {
                     id: stopButton
                     Layout.fillWidth: true
@@ -182,7 +186,8 @@ ApplicationWindow {
 
                     onClicked: {
                         refreshTimer.stop();
-                        controlSwitcherView.replace(stoppedButtons)
+                        controlSwitcherView.currentIndex =
+                                controlSwitcherView.componentIndexMap["stoppedButtons"];
                     }
                 }
 
@@ -211,10 +216,14 @@ ApplicationWindow {
             }
         }
 
-        Component {
+        Item {
             id: stoppedButtons
 
             RowLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
                 Button {
                     id: restartButton
                     Layout.fillWidth: true
@@ -222,7 +231,8 @@ ApplicationWindow {
 
                     onClicked: {
                         passedTime = new Date();
-                        controlSwitcherView.replace(runningButtons);
+                        controlSwitcherView.currentIndex =
+                                controlSwitcherView.componentIndexMap["runningButtons"];
                         refreshTimer.restart();
                     }
                 }
@@ -239,7 +249,8 @@ ApplicationWindow {
                         refreshTimer.stop();
                         lapTimeView.visible = false;
                         testModel.clear();
-                        controlSwitcherView.replace(startButtons);
+                        controlSwitcherView.currentIndex =
+                                controlSwitcherView.componentIndexMap["startButtons"];
                     }
                 }
             }
