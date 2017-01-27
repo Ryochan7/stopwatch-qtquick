@@ -72,13 +72,13 @@ ApplicationWindow {
         anchors.bottom: controlSwitcherView.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: 50
-        anchors.rightMargin: 50
 
         ListView {
             id: lapTimeView
             model: filteredLapModel
             anchors.fill: parent
+            anchors.leftMargin: 50
+            anchors.rightMargin: 50
 
             delegate: Row {
                 spacing: 50
