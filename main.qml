@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.3
-import SortFilterProxyModel 0.1
+import SortFilterProxyModel 0.2
 
 ApplicationWindow {
     id: applicationWindow1
@@ -111,8 +111,12 @@ ApplicationWindow {
     SortFilterProxyModel {
         id: filteredLapModel
         sourceModel: testModel
-        sortRoleName: "lapTime"
-        sortOrder: Qt.DescendingOrder
+        //sortRoleName: "lapTime"
+        sorters: RoleSorter {
+            roleName: "lapTime"
+            sortOrder: Qt.DescendingOrder
+        }
+        //sortOrder: Qt.DescendingOrder
     }
 
     Timer {
