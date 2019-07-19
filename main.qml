@@ -1,5 +1,5 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.7
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 import SortFilterProxyModel 0.2
 
@@ -41,17 +41,27 @@ ApplicationWindow {
     }
 
 
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            /*MenuItem {
-                text: qsTr("&Open")
-                onTriggered: console.log("Open action triggered");
+    header: ToolBar {
+        ToolButton {
+            text: "..."
+            font.pointSize: 14 * fontSizeMulti
+            font.bold: true
+            anchors.right: parent.right
+            rotation: 90.0;
+
+            onClicked: {
+                optionsMenu.open();
             }
-            */
+        }
+
+        Menu {
+            id: optionsMenu
+            transformOrigin: Menu.TopRight
+            x: parent.width - width
 
             MenuItem {
-                text: qsTr("Exit")
+                font.pointSize: 14 * fontSizeMulti
+                text: "Exit"
                 onTriggered: Qt.quit();
             }
         }
@@ -66,46 +76,48 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    ScrollView {
+
+    ListView {
+        id: lapTimeView
+        model: filteredLapModel
         anchors.top: label1.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: 40
         anchors.bottom: controlSwitcherView.top
+        anchors.bottomMargin: 40
         anchors.left: parent.left
         anchors.right: parent.right
 
-        ListView {
-            id: lapTimeView
-            model: filteredLapModel
-            anchors.fill: parent
-            anchors.leftMargin: 50
-            anchors.rightMargin: 50
+        anchors
+        {
+            leftMargin: 100
+            rightMargin: 100
+        }
 
-            delegate: Row {
-                spacing: 50
+        delegate: Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 50
 
-                Label {
-                    id: indexLabel
-                    text: (lapIndex + 1) + " "
-                    font.bold: true
-                    font.pointSize: parseInt(14 * fontSizeMulti)
-                    width: 50
-                }
+            Label {
+                id: indexLabel
+                text: (lapIndex + 1) + " "
+                font.bold: true
+                font.pointSize: parseInt(14 * fontSizeMulti)
+                width: 50
+            }
 
-                Label {
-                    id: timeLabel
-                    text: timeItemFormat(lapTime)
-                    font.pointSize: parseInt(14 * fontSizeMulti)
-                }
+            Label {
+                id: timeLabel
+                text: timeItemFormat(lapTime)
+                font.pointSize: parseInt(14 * fontSizeMulti)
+            }
 
-                Label {
-                    id: diffTimeLabel
-                    text: timeItemFormat(diffTime)
-                    font.pointSize: parseInt(16 * fontSizeMulti)
-                }
+            Label {
+                id: diffTimeLabel
+                text: timeItemFormat(diffTime)
+                font.pointSize: parseInt(16 * fontSizeMulti)
             }
         }
     }
-
 
 
     SortFilterProxyModel {
