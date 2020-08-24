@@ -59,7 +59,7 @@ void LapListModel::clear()
         if (temp)
         {
             delete temp;
-            temp = 0;
+            temp = nullptr;
         }
     }
 

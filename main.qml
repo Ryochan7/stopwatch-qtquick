@@ -3,12 +3,20 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 import SortFilterProxyModel 0.2
 
+import com.ryochan7.projectqmlcomponents 1.0
+
 ApplicationWindow {
     id: applicationWindow1
     visible: true
     width: 640
     height: 480
     title: qsTr("Test Stopwatch")
+
+    StopWatchBackend
+    {
+        id: watchBackend;
+        property alias backendListModel: watchBackend.lapListModel
+    }
 
     property date passedTime: new Date()
     property int passedMs: 0
@@ -25,7 +33,7 @@ ApplicationWindow {
 
     function timeItemFormat(num) {
         var result = ""
-        if (num < testModel.timeLimit)
+        if (num < watchBackend.backendListModel.timeLimit)
         {
             var milliseconds = Math.floor(num % 1000)
             var seconds = Math.floor(num / 1000 % 60)
@@ -122,7 +130,7 @@ ApplicationWindow {
 
     SortFilterProxyModel {
         id: filteredLapModel
-        sourceModel: testModel
+        sourceModel: watchBackend.backendListModel
         //sortRoleName: "lapTime"
         sorters: RoleSorter {
             roleName: "lapTime"
@@ -219,17 +227,17 @@ ApplicationWindow {
                     onClicked: {
                         var currentTime = new Date();
                         passedMs += new Date() - passedTime;
-                        if (passedMs > testModel.timeLimit)
+                        if (passedMs > watchBackend.backendListModel.timeLimit)
                         {
-                            passedMs = testModel.timeLimit;
+                            passedMs = watchBackend.backendListModel.timeLimit;
                         }
 
                         passedTime = new Date();
                         refreshTimer.restart();
 
-                        if (testModel.canAddLapItem(passedMs))
+                        if (watchBackend.backendListModel.canAddLapItem(passedMs))
                         {
-                            testModel.addLapItem(passedMs);
+                            watchBackend.backendListModel.addLapItem(passedMs);
                         }
                     }
                 }
@@ -268,7 +276,7 @@ ApplicationWindow {
                         passedTime = new Date();
                         refreshTimer.stop();
                         lapTimeView.visible = false;
-                        testModel.clear();
+                        watchBackend.backendListModel.clear();
                         controlSwitcherView.currentIndex =
                                 controlSwitcherView.componentIndexMap["startButtons"];
                     }

@@ -5,6 +5,7 @@ QT += qml quick quickcontrols2
 CONFIG += c++11
 
 SOURCES += main.cpp \
+    backend/stopwatchbackend.cpp \
     laplistmodel.cpp \
     lapitem.cpp
 
@@ -20,6 +21,8 @@ include(deployment.pri)
 include($$(HOME)/Sources/SortFilterProxyModel/SortFilterProxyModel.pri)
 
 HEADERS += \
+    backend/stopwatchbackend.h \
+    constants.h \
     laplistmodel.h \
     lapitem.h
 
