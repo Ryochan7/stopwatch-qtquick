@@ -15,7 +15,7 @@ ApplicationWindow {
     StopWatchBackend
     {
         id: watchBackend;
-        property alias backendListModel: watchBackend.lapListModel
+        property QtObject backendListModel: watchBackend.lapListModel
     }
 
     property date passedTime: new Date()

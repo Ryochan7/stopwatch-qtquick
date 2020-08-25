@@ -10,6 +10,8 @@ void RegisterClassesForQML()
     qmlRegisterType<StopWatchBackend>(ProjectConstants::packageId,
                                       ProjectConstants::packageVersionMajor, ProjectConstants::packageVersionMinor,
                                       "StopWatchBackend");
+
+    qRegisterMetaType<LapListModel*>("LapListModel*");
 }
 
 int main(int argc, char *argv[])
